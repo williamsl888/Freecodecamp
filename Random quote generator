@@ -1,0 +1,153 @@
+<!--html
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1> Random Quotations Generator </h1>
+      <div class="well clearfix">
+        <blockquote>
+          <p id="getOtherJoke"></p>
+          <footer id="author"></footer>
+        </blockquote>
+        <div class="fright">
+          <button class="btn btn-success" id="getMessage">New Quote</button>
+        </div>
+        <div class="fleft">
+          <a id="twitter" data-size="large" target="_blank">
+            <button type="button" class="btn btn-primary">Tweet Quote!</button></a>
+        </div>
+      </div>
+      <p class="small-text"> by William Lau </p>
+    </div>
+  </div>
+</div>
+
+-->
+
+<!--css
+body {
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.well {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #7c0c0c;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.small-text {
+  text-align: center;
+  color: #a9a6a6;
+  margin-top: 30px;
+}
+
+.fright {
+  float: left;
+  padding-bottom: 20px;
+}
+
+.fleft {
+  float: right;
+  padding-bottom: 20px;
+}
+
+
+/* ---- Float clearfix ---- */
+
+.clearfix::after {
+  content: " ";
+  display: table;
+  clear: both;
+}-->
+
+<!--
+$(document).ready(function() {
+
+  var jokesAPI = $(document).ready(function() {
+
+  var jokesAPI = "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json%00";
+  $.getJSON(jokesAPI, {
+
+    })
+    .done(function(json) {
+      var obj = JSON.stringify(json);
+      var data = JSON.parse(obj);
+      var jokes = [];
+      var jokeDisplay = document.getElementById("getOtherJoke");
+      for (var i = 0; i < data.quotes.length; i++) {
+        jokes.push(data.quotes[i].quote
+      +data.quotes[i].author);
+      }
+    
+
+      function pickJoke() {
+        var random = Math.floor(Math.random() * jokes.length);
+        return jokes[random];
+      }
+
+      $("#getOtherJoke").append(pickJoke);
+
+      $("#getMessage").on("click", function() {
+        pickedJoke = pickJoke();
+        jokeDisplay.textContent = pickedJoke;
+
+      });
+
+      $("#twitter").on("click", function() {
+        var textJoke = $('#getOtherJoke').text();
+        $(this).attr("href", 'https://twitter.com/intent/tweet?text=' + textJoke);
+      });
+
+    })
+
+  .fail(function(jqxhr, textStatus, error) {
+    var err = textStatus + ", " + error;
+    $("#getOtherJoke").append('Request to the server failed. Try again later!');
+  });
+
+});"https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json%00";
+  $.getJSON(jokesAPI, {
+
+    })
+    .done(function(json) {
+      var obj = JSON.stringify(json);
+      var data = JSON.parse(obj);
+      var jokes = [];
+      var jokeDisplay = document.getElementById("getOtherJoke");
+      for (var i = 0; i < data.quotes.length; i++) {
+        jokes.push(data.quotes[i].quote
+      +data.quotes[i].author);
+      }
+    
+
+      function pickJoke() {
+        var random = Math.floor(Math.random() * jokes.length);
+        return jokes[random];
+      }
+
+      $("#getOtherJoke").append(pickJoke);
+
+      $("#getMessage").on("click", function() {
+        pickedJoke = pickJoke();
+        jokeDisplay.textContent = pickedJoke;
+
+      });
+
+      $("#twitter").on("click", function() {
+        var textJoke = $('#getOtherJoke').text();
+        $(this).attr("href", 'https://twitter.com/intent/tweet?text=' + textJoke);
+      });
+
+    })
+
+  .fail(function(jqxhr, textStatus, error) {
+    var err = textStatus + ", " + error;
+    $("#getOtherJoke").append('Request to the server failed. Try again later!');
+  });
+
+});-->
