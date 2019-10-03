@@ -1,0 +1,178 @@
+HTML
+.pomodoro-clock
+  h1.title Pomodoro Clock
+  .clock-row
+    p.timer
+  .buttons-row
+    button.start Start Session
+    button.restart Restart
+    //- TODO
+    //- button.options Options
+    
+    CSS
+    $font: 'PT Sans Caption', sans-serif;
+$font-timer: 'PT Mono', monospace;
+$color-text: #4d4d4d;
+$color-button: #f2f2f2;
+$color-session: #00b368;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  height: 100%;
+  background-color: $color-text; // fallback
+  background: -webkit-linear-gradient(to bottom, $color-text, lighten($color-text, 20%));
+  background: linear-gradient(to bottom, $color-text, lighten($color-text, 20%));
+  font-size: 62.5%;
+  color: $color-text;
+}
+
+.pomodoro-clock {
+  margin: auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  width: 900px;
+  background-color: white;
+  border: 3px solid #e6e6e6;
+  font-family: $font;
+  text-align: center;
+  
+  > .title {
+    margin: 0 0 24px 0;
+    font-size: 5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+}
+
+.clock-row {
+  margin-bottom: 24px;
+  
+  > .timer {
+    font-family: $font-timer;
+    font-size: 5em;
+    
+    .colon {
+      position: relative;
+      top: -4px;
+    }
+  }
+}
+
+.buttons-row {
+  > button {
+    display: block;
+    margin: 0 auto;
+    padding: 4px 0 6px;
+    width: 20%;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    font-family: inherit;
+    font-size: 2em;
+    color: $color-text;
+    
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+  > .start {
+    background-color: $color-session;
+    color: $color-button;
+  }
+  
+  > .restart {
+    border-color: $color-text;
+  }
+}
+
+js
+let sessionminutes = 60;
+let breakminutes = 20;
+
+let timer = $(".timer");
+let minutes = sessionminutes;
+let seconds = 0;
+let paused = true;
+let session = true;
+
+setInterval(function() {
+  if (!paused) {
+    runTimer();
+  }
+}, 1000);
+
+function runTimer() {
+  if (minutes > 0 || seconds > 0) {
+    if (seconds > 0) {
+      seconds--;
+      updateTimer();
+    } else {
+      minutes--;
+      seconds = 59;
+      updateTimer();
+    }
+  } else {
+    if (session) {
+      session = !session;
+      paused = !paused;
+      minutes = breakminutes;
+      $(".start").text('Start Break');
+      updateTimer();
+    } else {
+      session = !session;
+      paused = !paused;
+      minutes = sessionminutes;
+      $(".start").text('Start Session');
+      updateTimer();
+    }
+  }
+}
+
+function updateTimer() {
+  let mintext = minutes < 10 ? '0' : '';
+  let sectext = seconds < 10 ? '0' : '';
+  timer.html(
+    mintext + minutes +
+    "<span class='colon'>:</span>" +
+    sectext + seconds);
+}
+
+$(".start").click(function() {
+  if (paused) {
+    paused = !paused;
+    if (session)
+      $(this).text("Pause Session");
+    else
+      $(this).text("Pause Break");
+  }
+  else {
+    paused = !paused;
+    if (session)
+      $(this).text("Start Session");
+    else
+      $(this).text("Start Break");
+  }
+});
+
+$(".restart").click(function() {
+  paused = true;
+  let buttonText = session ? "Start Session" : "Start Break";
+  $(".start").text(buttonText);
+  minutes = session ? sessionminutes : breakminutes;
+  seconds = 0;
+  updateTimer();
+});
+
+$(document).ready(function() {
+  updateTimer();
+});
+    
