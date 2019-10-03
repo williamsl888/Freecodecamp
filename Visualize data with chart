@@ -1,0 +1,156 @@
+html
+<div class="container">
+  <div class="card col-xs-12">
+    <div class="title">Gross Domestic Product of United States</div>
+    <div class="title-lead">Units: Billions of Dollars</div>
+    <svg class="chart"></svg>
+    <!--   <div class="notes"></div> -->
+  </div>
+</div>
+
+css
+body {
+  font-family: Roboto, sans-serif;
+  background: url(http://www.roofmedicok.com/wp-content/uploads/2014/04/graph-paper-background-slider.gif)
+}
+
+.d3-tip {
+  line-height: 1;
+/*   font-weight: bold; */
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-size: 14px;
+}
+
+.card {
+  margin-top: 30px;
+/*   background-color: rgb(240, 240, 240); */
+  text-align: center;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.32), 0 3px 12px 0 rgba(0, 0, 0, 0.24);
+  background-color: #fff;
+  opacity: .9
+}
+
+.title {
+  font-size: 32px;
+  color: #5AA364;
+}
+
+.title-lead {
+  font-size: 20px;
+  color: #5AA364;
+}
+
+js
+const dataUrl = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json'
+
+const margin = {
+  top: 5,
+  right: 30,
+  bottom: 30,
+  left: 50
+}
+
+const width = d3.select(".card").node().getBoundingClientRect().width - margin.right - margin.left;
+const height = document.documentElement.clientWidth <= 768 ? 250 : 500 - margin.top - margin.bottom;
+
+const colors = {
+  bar: '#5AA364',
+  highlight: '#84F092'
+}
+
+const monthNames = ["January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                   ];
+
+function buildGraph(ds) {
+  const tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html((d, dateString) => `<strong>$${d[1]} Billion</strong><br><span>${dateString}</span>`);
+  
+  const minDate = new Date(ds[0][0]);
+  const maxDate = new Date(ds[ds.length - 1][0]);
+  
+  const xScale = d3.time.scale().domain([minDate,maxDate]).range([0, width]);
+  
+  const yScale = d3.scale.linear()
+                  .domain([0, d3.max(ds, d => d[1])])
+                  .range([height, 0]);
+  
+  const xAxisGen = d3.svg.axis().scale(xScale).orient('bottom').ticks(d3.time.years, 5);
+  const yAxisGen = d3.svg.axis().scale(yScale).orient('left');
+  
+  const svg = d3.select('.chart')
+                  .attr({
+                    width: width + margin.right + margin.left,
+                    height: height + margin.top + margin.bottom,
+                  })
+                  .append('g')
+                  .attr('transform', `translate(${margin.left}, ${margin.top})`)
+                  .call(tip)
+  
+  const xAxis = svg.append('g').call(xAxisGen)
+                  .attr({
+                    class: 'x axis',
+                    transform: `translate(0, ${height})`
+                  });
+  
+  const yAxis = svg.append('g').call(yAxisGen)
+                  .attr({
+                    class: 'y axis',
+                  });
+
+  const viz = svg.selectAll('.bar')
+    .data(ds)
+    .enter()
+    .append('rect')
+      .attr({
+        class: 'bar',
+        x: d => xScale(new Date(d[0])),
+        y: d => yScale(d[1]),
+        width: Math.ceil(width / ds.length),
+        height: d => height - yScale(d[1]),
+        fill: colors.bar
+      })
+    .on('mouseover', function(d) {
+      let parsed = new Date(d[0]);
+      let dateString = `${parsed.getFullYear()} - ${monthNames[parsed.getMonth()]}`;
+    
+      d3.select(this).attr('fill', colors.highlight);
+      tip.show(d, dateString);
+    })
+    .on('mouseout', function(d) { 
+      d3.select(this).attr('fill', colors.bar);
+      tip.hide(d);
+  })
+}
+
+
+d3.json(dataUrl, (err, data) => {
+  if (err) throw err;
+  
+  buildGraph(data.data);
+});
