@@ -1,0 +1,86 @@
+html
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Marni Duffy</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="http://marnibuilds.com" target="_blank">Site/Resume</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+  <div id="input" class="col-sm-12">
+    <form class="form-inline">
+      <div class="form-group">
+          <input class="form-control" type="text" name="date" id="date" placeholder="enter a unix or natural date"/>
+      </div>
+      <input type="button" value="Submit" class="btn" id="btnsubmit" >
+    </form>
+  </div> 
+  <div class="col-sm-6 results text-center">
+    <h1>Date Results:</h1>
+    <div id="data"></div>
+  </div>
+</div>
+<div class="footer">
+  <p>Created for <a href="http://freecodecamp.org" target="_blank">Free Code Camp</a> Full Stack Certification Program. Objective: Allow user input. If input contains a unix or natural date, return both. If not, return null.</p>
+</div>
+
+css
+$darkgray: #5e5e5e;
+$lightgray: #e7e7e7;
+$hotpink: rgba(204, 64, 139, 0.2);
+
+h1{ 
+  font-size: 1.2em;
+  color: $darkgray;
+}
+.btn {
+  color: $darkgray;
+  background-color: $hotpink;
+}
+.results {
+  height: 100px;
+  border: 2px solid $lightgray;
+  border-radius: 5px;
+  margin: 20px;
+}
+.footer {
+  font-size: 1.1em;
+  background-color: $darkgray;
+  padding: 20px;
+  color: white;
+  a {
+    color: white;
+  }
+}
+js
+$("#btnsubmit").on('click', function(){
+  var date = document.getElementById('date').value;
+  var m = moment(date);
+  var x = moment.unix(date);
+  if (x.isValid()){
+    $("#data").html("{"+ "unix:" + date +", natural: " + x.format("MMMM Do, YYYY") + "}"); 
+  }
+  else if(moment(m).isValid()){
+    $("#data").html("{"+ "unix:" + moment(date).unix() +", natural: " + moment(date).format("MMMM Do, YYYY") + "}"); 
+  }else {
+      $("#data").html("{ unix: null, natural: null }");
+  }
+});
+
+$("form").submit(function (e) {
+    e.preventDefault();
+    $('#btnsubmit').click();
+});
+  
