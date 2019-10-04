@@ -1,0 +1,63 @@
+html 
+<html>
+    <head>
+        <title>URL Shortener Microservice</title>
+        <link rel='stylesheet' href='//fonts.googleapis.com/css?family=BenchNine|Open+Sans'>
+        <link rel='stylesheet' type='text/css' href='/public/stylesheets/main.css'>
+
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='url-shortener--title'>Project</div>
+          <div class='url-shortener--subtitle'>A URL Shortener Microservice</div>
+            
+            
+
+            <div class='url-shortener__exampleusage'>
+                <div class='url-shortener__exampleusage--title'>Example Creation Usage:</div>
+                <div class='url-shortener__exampleusage--text'>
+                    <a href='https://github.com/williamsl888/Freecodecamp/blob/master/request%20header/new/https://www.google.com'>Add input example here
+</a>
+                </div>
+            </div>
+
+            <div class='url-shortener__exampleoutput'>
+                <div class='url-shortener__exampleoutput--title'>Example Creation Output:</div>
+                <div class='url-shortener__exampleoutput--text'>
+                    { Add JSON example here
+ }
+                  <div class='url-shortener--fadeout'>Fieldname "createdAt" is used for expiring old links (180 days from creation).</div>
+                </div>
+            </div>
+
+            <div class='url-shortener__outcome'>
+                <div class='url-shortener__outcome--title'>Example Outcome:</div>
+                <div class='url-shortener__outcome--text'>
+                    /1000
+<div class='url-shortener--fadeout'>will redirect to</div> https://www.google.com
+                </div>
+            </div>
+
+           
+    </body>
+</html>
+
+cs
+footer {
+	float: right;
+}
+
+code a, code a:hover, code a:focus, code a:visited {
+	color: #c7254e;
+}
+
+i {
+	color: black;
+	margin-left: 10px;
+}
+
+code {
+	padding: 0;
+}
+
+
