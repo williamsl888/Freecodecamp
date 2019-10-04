@@ -1,0 +1,68 @@
+html
+<head>
+  <meta charset="UTF-8">
+  <title>Header Parser Microservice</title>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+
+</head>
+    
+<body>
+
+  <h1 class="title">Request Header Parser Microservice —</h1>
+
+  <p class="credit">A <a target="_blank" href="https://www.freecodecamp.com/challenges/request-header-parser-microservice">Free Code Camp</a> Project by <a target="_blank" href="http://sean-smith.me">William Lau</a> </p>
+
+  <p class="instructions">Instructions:</p>
+
+  <p class="description">Visit <a target="_blank" href="https://request-header-parser-service.herokuapp.com/whoami"><code>https://request-header-parser-service.herokuapp.com/whoami</code></a> to view your IP address, language, operating system, and browser specs as a JSON object.</p>
+
+</body>
+
+css
+body {
+    background: rgba(255, 246, 100, 1);
+    background: rgb(255, 220, 99);
+    background: linear-gradient( rgb(255, 229, 138), rgb(255, 220, 99));
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: rgb(60, 60, 60);
+    font-family: Avenir;
+    padding: 10px 50px 50px 50px;
+}
+.title {
+	font-size: 55px;
+}
+p {
+	color: rgb(30,30,30);
+}
+
+.credit {
+	margin-top: -20px;
+}
+.instructions {
+	font-size: 35px;
+	text-decoration: underline;
+	margin-bottom: -5px;
+}
+.description {
+	font-size: 20px;
+	max-width: 1200px;
+}
+code {
+	background: rgba(245, 245, 245, 0.65);
+	padding: 5px 5px;
+	border-radius: 5px;
+}
+
+a, a:visited {
+	color: rgb(160, 97, 224);
+}
+
+.description a, .description a:visited {
+	color: rgb(136, 64, 209);
+}
+
+a:hover {
+	color: rgb(10,10,10);
+}
