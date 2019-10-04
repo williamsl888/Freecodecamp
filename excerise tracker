@@ -1,0 +1,186 @@
+html
+%body
+  .workout-tracker
+    %h1
+      Barbell Curl
+    %ul
+      %li
+        .set
+          %span.number 1
+          %span.inc set
+        &#8594;
+        .weight
+          %span.number 80 
+          %span.inc lbs
+        &#215;
+        .reps
+          %span.number 15 
+          %span.inc reps
+        .fake-checkbox.checked
+      %li
+        .set
+          %span.number 1
+          %span.inc set
+        &#8594;
+        .weight
+          %span.number 80 
+          %span.inc lbs
+        &#215;
+        .reps
+          %span.number 15 
+          %span.inc reps
+        .fake-checkbox.checked
+      %li.current-set
+        .set
+          %span.number 1
+          %span.inc set
+        &#8594;
+        .weight
+          %span.number 80 
+          %span.inc lbs
+        &#215;
+        .reps
+          %span.number 15 
+          %span.inc reps
+        .fake-checkbox.current
+      %li
+        .set
+          %span.number 1
+          %span.inc set
+        &#8594;
+        .weight
+          %span.number 80 
+          %span.inc lbs
+        &#215;
+        .reps
+          %span.number 15 
+          %span.inc reps
+        .fake-checkbox.next
+        css
+        @import url('https://fonts.googleapis.com/css?family=Hind:400,600');
+
+* {
+  box-sizing: border-box
+}
+body {
+  background: #F1F1F3;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-top: 40vh;
+}
+.workout-tracker {
+  width: 325px;
+  height: 285px;
+  box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  position: relative;
+  padding: 40px 45px;
+}
+
+.workout-tracker::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 325px;
+  height: 252px;
+  
+  transform: translateX(20px) translateY(-100%);
+}
+
+.workout-tracker h1 {
+  font-family: 'Hind', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #E64835;
+  text-align: center;
+  font-size: 1.5em;
+  letter-spacing: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.workout-tracker ul {
+  list-style: none;
+  margin: 34px 0 0 0;
+  padding: 0;
+}
+
+.workout-tracker ul li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 22px 0;
+  padding: 0;
+  color: #ACA4A6;
+  font-family: 'Hind', sans-serif;
+}
+
+.workout-tracker ul li.current-set {
+  color: #4A2D36;
+}
+
+.number {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.inc {
+  font-size: 0.8em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/* This is bad accesibility, bad practice, bad everything - but it will look cool....:) */
+
+.fake-checkbox{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.checked {
+  background: #B2CFB2;
+}
+
+.checked::after {
+  content: '';
+  width: 15px;
+  height: 20px;
+  background: url('https://i.imgur.com/KHjzC11.png');
+  background-size: cover;
+  position: absolute;
+  top: -10px;
+  left: -1.5px;
+}
+
+.current {
+  background: #E75A46;
+}
+
+.next {
+  background: none;
+}
+
+.next::after {
+  content: '';
+  width: 12px;
+  height: 1px;
+  background: grey;
+  position: absolute;
+  top: 50%;
+  left: 0;
+ }
+
+js
+$(".fake-checkbox").click(function() {
+  $(this).closest("li").removeClass('current-set');
+  $(this).removeClass('current').addClass('checked');
+});
+
+
