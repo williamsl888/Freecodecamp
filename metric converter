@@ -1,0 +1,56 @@
+html
+<div ng-app="Convert" ng-controller="ControllerConvert" class="container padding-50px">
+  <div class="row center">  
+    <div class="col-lg-12">
+        <input type="number" ng-model="valueToConvert"> In
+    </div>
+    <div class="col-lg-12">
+        <strong>{{valueToConvert | converter: 'metric'}}<small> cm Metric System</small> </strong>     
+    </div>
+   <div class="col-lg-12">
+        <strong>{{valueToConvert | converter: 'imperial'}}<small> in Imperial System</small></strong>      
+    </div>
+  </div>
+</div>
+css
+.padding-50px
+{
+    padding:50px !important;
+}
+
+body
+{  
+  background-color:#337ab7ba;
+}
+
+.center
+{
+  margin-left:30%;
+}
+
+
+
+js
+var Convert = angular.module('Convert', []);
+
+Convert.controller('ControllerConvert', ['$scope', function ($scope) {
+    $scope.valueToConvert = 0;
+    $scope.Method = function (page) {        
+    }
+}]);
+
+Convert.filter('converter', function() {
+  return function(input, type) {
+    var out = input;
+    switch(type)
+    {
+      case 'metric':
+          out = input *  0.3937;
+          break;
+    }
+    return out;
+  };
+})
+
+
+
